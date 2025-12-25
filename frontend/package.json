@@ -7,8 +7,8 @@
     "build": "ng build --configuration production",
     "test": "ng test",
     "lint": "ng lint",
-    "lint:scss": "npx stylelint \"**/*.scss\"",
-    "lint:fix": "ng lint --fix && npx stylelint \"**/*.scss\" --fix"
+    "lint:scss": "npx stylelint "**/*.scss"",
+    "lint:fix": "ng lint --fix && npx stylelint "**/*.scss" --fix"
   },
   "private": true,
   "dependencies": {
@@ -39,6 +39,7 @@
     "canvas-confetti": "^1.9.3",
     "codemirror": "^5.65.14",
     "codemirror-solidity": "^0.2.5",
+    "dompurify": "^3.2.2",
     "ethers": "^5.7.2",
     "file-saver": "^2.0.2",
     "flag-icons": "^6.9.2",
@@ -64,6 +65,7 @@
   },
   "devDependencies": {
     "@angular/language-service": "^20.1.0",
+    "@types/dompurify": "^3.2.0",
     "@types/express-serve-static-core": "^4.17.9",
     "@types/file-saver": "^2.0.1",
     "@types/jasmine": "~5.1.0",
