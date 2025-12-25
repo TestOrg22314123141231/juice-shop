@@ -197,10 +197,29 @@ describe('insecurity', () => {
   })
 
   describe('hmac', () => {
-    it('returns SHA-256 HMAC with "pa4qacea4VK9t9nGv7yZtwmj" as salt any input string', () => {
+    const originalHmacSecret = process.env.HMAC_SECRET
+
+    beforeEach(() => {
+      process.env.HMAC_SECRET = 'pa4qacea4VK9t9nGv7yZtwmj'
+    })
+
+    afterEach(() => {
+      if (originalHmacSecret !== undefined) {
+        process.env.HMAC_SECRET = originalHmacSecret
+      } else {
+        delete process.env.HMAC_SECRET
+      }
+    })
+
+    it('returns SHA-256 HMAC with HMAC_SECRET as salt for any input string', () => {
       expect(security.hmac('admin123')).to.equal('6be13e2feeada221f29134db71c0ab0be0e27eccfc0fb436ba4096ba73aafb20')
       expect(security.hmac('password')).to.equal('da28fc4354f4a458508a461fbae364720c4249c27f10fccf68317fc4bf6531ed')
       expect(security.hmac('')).to.equal('f052179ec5894a2e79befa8060cfcb517f1e14f7f6222af854377b6481ae953e')
+    })
+
+    it('throws an error when HMAC_SECRET is not set', () => {
+      delete process.env.HMAC_SECRET
+      expect(() => security.hmac('test')).to.throw('HMAC_SECRET environment variable is required')
     })
   })
 })
