@@ -10,11 +10,17 @@ export function serveLogFiles () {
   return ({ params }: Request, res: Response, next: NextFunction) => {
     const file = params.file
 
-    if (!file.includes('/')) {
-      res.sendFile(path.resolve('logs/', file))
-    } else {
+    // Canonicalize the logs directory to absolute path
+    const logsDir = path.resolve('logs/')
+    // Resolve the requested file path
+    const requestedPath = path.resolve(logsDir, file)
+
+    // Validate that the resolved path stays within the logs directory
+    if (!requestedPath.startsWith(logsDir + path.sep) && requestedPath !== logsDir) {
       res.status(403)
-      next(new Error('File names cannot contain forward slashes!'))
+      next(new Error('Access denied: Path traversal detected'))
+    } else {
+      res.sendFile(requestedPath)
     }
   }
 }
