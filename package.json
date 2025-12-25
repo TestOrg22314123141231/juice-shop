@@ -59,8 +59,8 @@
     "lint:fix": "eslint *.ts data lib models routes test/**/*.ts views rsn --fix && cd frontend && npm run lint:fix && cd ..",
     "package": "grunt package",
     "package:ci": "npm prune --production && npm dedupe && cd frontend && npm prune --production && cd .. && npm run --silent sbom && grunt package",
-    "serve": "concurrently --kill-others \"ts-node app.ts\" \"cd frontend && npm run start\"",
-    "serve:dev": "concurrently --kill-others \"ts-node-dev app.ts\" \"cd frontend && npm run start\"",
+    "serve": "concurrently --kill-others "ts-node app.ts" "cd frontend && npm run start"",
+    "serve:dev": "concurrently --kill-others "ts-node-dev app.ts" "cd frontend && npm run start"",
     "start": "node build/app",
     "test": "cd frontend && npm run test -- --watch=false --source-map=true && cd .. && npm run test:server",
     "test:chromium": "cd frontend && npm run test -- --watch=false --source-map=false --browsers=ChromiumHeadless && cd .. && npm run test:server",
@@ -76,7 +76,7 @@
   },
   "jest": {
     "transform": {
-      "^.+\\.[tj]s$": [
+      "^.+\.[tj]s$": [
         "ts-jest",
         {
           "diagnostics": false
@@ -175,7 +175,6 @@
     "sanitize-html": "1.4.2",
     "semver": "^7.6.3",
     "sequelize": "^6.37.3",
-    "serve-index": "^1.9.1",
     "socket.io": "^3.1.2",
     "sqlite3": "^5.1.7",
     "svg-captcha": "^1.4.0",
@@ -227,7 +226,6 @@
     "@types/sanitize-html": "^1.27.2",
     "@types/semver": "^7.5.8",
     "@types/sequelize": "^4.28.20",
-    "@types/serve-index": "^1.9.4",
     "@types/sinon": "^10.0.20",
     "@types/sinon-chai": "^3.2.12",
     "@types/socket.io": "^2.1.13",
