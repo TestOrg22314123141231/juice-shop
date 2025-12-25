@@ -19,6 +19,7 @@ import validateChatBot from '../lib/startup/validateChatBot'
 import * as security from '../lib/insecurity'
 import * as botUtils from '../lib/botUtils'
 import { challenges } from '../data/datacache'
+import sanitizeHtml from 'sanitize-html'
 
 let trainingFile = config.get<string>('application.chatBot.trainingData')
 let testCommand: string
@@ -56,7 +57,7 @@ async function processQuery (user: User, req: Request, res: Response, next: Next
   if (!username) {
     res.status(200).json({
       action: 'namequery',
-      body: 'I\'m sorry I didn\'t get your name. What shall I call you?'
+      body: 'I'm sorry I didn't get your name. What shall I call you?'
     })
     return
   }
@@ -117,9 +118,10 @@ async function processQuery (user: User, req: Request, res: Response, next: Next
       })
     } catch (err) {
       challengeUtils.solveIf(challenges.killChatbotChallenge, () => { return true })
+      const errorMessage = sanitizeHtml(utils.getErrorMessage(err), { allowedTags: [], allowedAttributes: {} })
       res.status(200).json({
         action: 'response',
-        body: `Remember to stay hydrated while I try to recover from "${utils.getErrorMessage(err)}"...`
+        body: `Remember to stay hydrated while I try to recover from "${errorMessage}"...`
       })
     }
   }
@@ -185,7 +187,7 @@ export const status = function status () {
     if (!username) {
       res.status(200).json({
         action: 'namequery',
-        body: 'I\'m sorry I didn\'t get your name. What shall I call you?'
+        body: 'I'm sorry I didn't get your name. What shall I call you?'
       })
       return
     }
