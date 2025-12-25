@@ -51,7 +51,7 @@ html(lang='en')
             video(width='85vw', height='240', controls='controls')
                source(src='./video', type='video/mp4')
 
-        script#subtitle.
+        div#subtitle(style='display:none;')
 
 
         script.
@@ -66,7 +66,10 @@ html(lang='en')
             return seconds + 60 * minutes + 60 * 60 * hours;
             }
             function quick_and_dirty_vtt_or_srt_parser(vtt) {
-            var lines = vtt.trim().replace('\\r\n', '\n').split(/[\r\n]/).map(function(line) {
+            var lines = vtt.trim().replace('
+', '
+').split(/[
+]/).map(function(line) {
             return line.trim();
             });
             var cues = [];
@@ -75,7 +78,7 @@ html(lang='en')
             var payload = null;
             for (var i = 0; i < lines.length; i++) {
             if (lines[i].indexOf('-->') >= 0) {
-            var splitted = lines[i].split(/[ \\t]+-->[ \t]+/);
+            var splitted = lines[i].split(/[ 	]+-->[ 	]+/);
             if (splitted.length != 2) {
             throw 'Error when splitting "-->": ' + lines[i];
             }
@@ -94,7 +97,8 @@ html(lang='en')
             if (payload == null) {
             payload = lines[i];
             } else {
-            payload += '\\n' + lines[i];
+            payload += '
+' + lines[i];
             }
             }
             }
