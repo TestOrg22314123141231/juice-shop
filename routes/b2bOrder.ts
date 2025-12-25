@@ -5,8 +5,8 @@
 
 import vm from 'node:vm'
 import { type Request, type Response, type NextFunction } from 'express'
-// @ts-expect-error FIXME due to non-existing type definitions for notevil
-import { eval as safeEval } from 'notevil'
+// @ts-expect-error FIXME due to non-existing type definitions for eval
+import safeEval from 'eval'
 
 import * as challengeUtils from '../lib/challengeUtils'
 import { challenges } from '../data/datacache'
